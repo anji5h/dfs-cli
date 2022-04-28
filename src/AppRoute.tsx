@@ -1,12 +1,13 @@
 import { lazy, Suspense, useContext } from "react";
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
+import Loader from "./components/Loader";
 import { AuthContext } from "./providers/AuthProvider";
 const LoginPage = lazy(() => import("./pages/LoginPage"));
 
 const AppRoute: React.FC = () => {
   const { state } = useContext(AuthContext);
   return (
-    <Suspense fallback={<div>loading....</div>}>
+    <Suspense fallback={<Loader text="Loading . . ." />}>
       <Routes>
         <Route element={<PublicRoute isAuth={!!state.user} />}>
           <Route path="/login" element={<LoginPage />} />

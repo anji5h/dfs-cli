@@ -1,5 +1,7 @@
 import { createContext, useEffect, useReducer } from "react";
+import Loader from "../components/Loader";
 import { AuthReducer } from "../reducers/AuthReducer";
+import { httpGet } from "../utils/httpRequest";
 
 const initialState: Auth.IAuthState = {
   loading: true,
@@ -9,7 +11,7 @@ const initialState: Auth.IAuthState = {
 
 export const AuthContext = createContext({
   state: initialState,
-  login: (user: Auth.IUser) => {},
+  login: async (token: string) => {},
   logout: () => {},
   reset: () => {},
 });
@@ -21,8 +23,16 @@ const AuthProvider: ReactFCWithChildren = ({ children }) => {
     dispatch({ type: "LOGOUT" });
   }, []);
 
-  const login = (user: Auth.IUser) => {
-    dispatch({ type: "LOGIN_SUCCESS", payload: user });
+  const login = async (token: string) => {
+    try {
+      localStorage.setItem("token", token);
+      dispatch({ type: "RESET" });
+      console.log("a")
+      let { data } = await httpGet("/user/me", true);
+      dispatch({ type: "LOGIN_SUCCESS", payload: data.user });
+    } catch (err: any) {
+      dispatch({ type: "LOGIN_ERROR", payload: err.response?.data?.message || err.message });
+    }
   };
 
   const logout = () => {
@@ -37,7 +47,13 @@ const AuthProvider: ReactFCWithChildren = ({ children }) => {
 
   return (
     <AuthContext.Provider value={{ state, login, logout, reset }}>
-      {state.loading ? <div></div> : state.error ? <div>{state.error}</div> : children}
+      {state.loading ? (
+        <Loader text="Loading . . . ." />
+      ) : state.error ? (
+        <div>{state.error}</div>
+      ) : (
+        children
+      )}
     </AuthContext.Provider>
   );
 };

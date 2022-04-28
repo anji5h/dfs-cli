@@ -1,7 +1,10 @@
 import { useForm } from "react-hook-form";
 import { TextField, Button, Grid, Typography } from "@mui/material";
 import { httpPost } from "../utils/httpRequest";
+import { useContext } from "react";
+import { AuthContext } from "../providers/AuthProvider";
 const LoginPage: React.FC = () => {
+  const { login } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -11,7 +14,7 @@ const LoginPage: React.FC = () => {
   const onSubmit = async (data: Login.IInputField) => {
     try {
       const res = await httpPost("/auth/login", data);
-      console.log(res);
+      await login(res.data.token);
     } catch (err: any) {
       console.log(err.response);
     }
