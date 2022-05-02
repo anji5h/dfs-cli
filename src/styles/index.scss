@@ -1,7 +1,8 @@
 @font-face {
-  font-family: "Poppins";
+  font-family: "poppins";
   src: url("./../../fonts/Poppins-Regular.ttf") format("truetype");
 }
+@import "./navbar.scss";
 * {
   margin: 0;
   padding: 0;
@@ -14,4 +15,19 @@ body,
 #root {
   height: 100vh;
   width: 100vw;
+}
+#root {
+  border-top: 10px solid orange;
+}
+.clock {
+  display: inline-block;
+  width: 65px;
+}
+.h-link,
+.h-link:focus,
+.h-link:hover,
+.h-link:visited,
+.h-link:active {
+  color: inherit;
+  text-decoration: none;
 }

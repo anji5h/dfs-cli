@@ -3,8 +3,11 @@ import { TextField, Button, Grid, Typography } from "@mui/material";
 import { httpPost } from "../utils/httpRequest";
 import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
+import { ToastContext } from "../providers/ToastProvider";
 const LoginPage: React.FC = () => {
   const { login } = useContext(AuthContext);
+  const { showToast } = useContext(ToastContext);
+
   const {
     register,
     handleSubmit,
@@ -16,7 +19,12 @@ const LoginPage: React.FC = () => {
       const res = await httpPost("/auth/login", data);
       await login(res.data.token);
     } catch (err: any) {
-      console.log(err.response);
+      showToast({
+        message: err.response?.data?.message || err.message,
+        duration: 3000,
+        type: "error",
+        open: true,
+      });
     }
   };
 

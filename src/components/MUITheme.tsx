@@ -1,4 +1,4 @@
-import { Box, Container, CssBaseline, ThemeProvider } from "@mui/material";
+import { Container, CssBaseline, ThemeProvider } from "@mui/material";
 import { MUICustomTheme } from "../utils/MUICustomTheme";
 
 const MUITheme: ReactFCWithChildren = ({ children }) => {

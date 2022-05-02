@@ -1,7 +1,8 @@
-import { createContext, useEffect, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer } from "react";
 import Loader from "../components/Loader";
 import { AuthReducer } from "../reducers/AuthReducer";
 import { httpGet } from "../utils/httpRequest";
+import { ToastContext } from "./ToastProvider";
 
 const initialState: Auth.IAuthState = {
   loading: true,
@@ -17,27 +18,50 @@ export const AuthContext = createContext({
 });
 
 const AuthProvider: ReactFCWithChildren = ({ children }) => {
+  const { showToast } = useContext(ToastContext);
+
   const [state, dispatch] = useReducer(AuthReducer, initialState);
 
+  const getAuthStatus = async () => {
+    try {
+      const res = await httpGet("/user/me", true);
+      dispatch({ type: "LOGIN_SUCCESS", payload: res.data.user });
+    } catch (err: any) {
+      if (err.response?.status === 401) {
+        return dispatch({ type: "LOGOUT" });
+      }
+      dispatch({ type: "LOGIN_ERROR", payload: err.response?.data?.message || err.message });
+    }
+  };
+
   useEffect(() => {
-    dispatch({ type: "LOGOUT" });
+    const token = localStorage.getItem("token");
+    if (!token) return dispatch({ type: "LOGOUT" });
+    getAuthStatus();
   }, []);
 
   const login = async (token: string) => {
     try {
       localStorage.setItem("token", token);
       dispatch({ type: "RESET" });
-      console.log("a")
       let { data } = await httpGet("/user/me", true);
+      showToast({
+        message: "Login successful",
+        duration: 3000,
+        type: "success",
+        open: true,
+      });
       dispatch({ type: "LOGIN_SUCCESS", payload: data.user });
     } catch (err: any) {
+      if (err.response?.status === 401) {
+        logout();
+      }
       dispatch({ type: "LOGIN_ERROR", payload: err.response?.data?.message || err.message });
     }
   };
 
   const logout = () => {
-    localStorage.removeItem("refresh_token");
-    sessionStorage.removeItem("access_token");
+    localStorage.removeItem("token");
     dispatch({ type: "LOGOUT" });
   };
 
