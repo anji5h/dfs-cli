@@ -28,11 +28,11 @@ const AppRoute: React.FC = () => {
 //private route wrapper
 const PrivateRoute: React.FC<IRouterProps> = function ({ isAuth }) {
   return isAuth ? (
-    <Grid container flexDirection="column">
+    <Grid container flexDirection="column" height="100%" flexWrap="nowrap">
       <Grid item>
         <NavBar />
       </Grid>
-      <Grid item>
+      <Grid item flexGrow={1}>
         <Outlet />
       </Grid>
     </Grid>
