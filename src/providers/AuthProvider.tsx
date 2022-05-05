@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
+import { useImmerReducer } from "use-immer";
 import Loader from "../components/Loader";
 import { AuthReducer } from "../reducers/AuthReducer";
 import { httpGet } from "../utils/httpRequest";
@@ -20,12 +21,12 @@ export const AuthContext = createContext({
 const AuthProvider: ReactFCWithChildren = ({ children }) => {
   const { showToast } = useContext(ToastContext);
 
-  const [state, dispatch] = useReducer(AuthReducer, initialState);
+  const [state, dispatch] = useImmerReducer(AuthReducer, initialState);
 
   const getAuthStatus = async () => {
     try {
-      const res = await httpGet("/user/me", true);
-      dispatch({ type: "LOGIN_SUCCESS", payload: res.data.user });
+      const { data } = await httpGet("/user/me", true);
+      dispatch({ type: "LOGIN_SUCCESS", payload: data.user });
     } catch (err: any) {
       if (err.response?.status === 401) {
         return dispatch({ type: "LOGOUT" });

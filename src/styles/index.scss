@@ -2,10 +2,10 @@
   font-family: "poppins";
   src: url("./../../fonts/Poppins-Regular.ttf") format("truetype");
 }
-@import "./navbar.scss";
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 *:focus {
   outline: none;

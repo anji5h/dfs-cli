@@ -1,4 +1,5 @@
-import { createContext, useReducer } from "react";
+import { createContext } from "react";
+import { useImmerReducer } from "use-immer";
 import { FoodReducer } from "../reducers/FoodIReducer";
 const initialState: Food.IFoodState = {
   loading: true,
@@ -16,7 +17,7 @@ export const FoodContext = createContext({
 });
 
 const FoodProvider: ReactFCWithChildren = ({ children }) => {
-  const [state, dispatch] = useReducer(FoodReducer, initialState);
+  const [state, dispatch] = useImmerReducer(FoodReducer, initialState);
   const setFood = (categories: Food.IFoodCategory[]) => {
     dispatch({ type: "GET_FOODS", payload: categories });
   };

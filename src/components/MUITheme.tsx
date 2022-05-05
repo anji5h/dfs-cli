@@ -1,10 +1,10 @@
-import { Container, CssBaseline, ThemeProvider } from "@mui/material";
+import Container from "@mui/material/Container";
+import ThemeProvider from "@mui/material/styles/ThemeProvider";
 import { MUICustomTheme } from "../utils/MUICustomTheme";
 
 const MUITheme: ReactFCWithChildren = ({ children }) => {
   return (
     <ThemeProvider theme={MUICustomTheme()}>
-      <CssBaseline />
       <Container maxWidth="xl" style={{ height: "100%" }}>
         {children}
       </Container>

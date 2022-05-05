@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import Grid from "@mui/material/Grid";
 import { lazy, Suspense, useContext } from "react";
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 import Loader from "./components/Loader";
@@ -10,14 +10,16 @@ const LoginPage = lazy(() => import("./pages/LoginPage"));
 const HomePage = lazy(() => import("./pages/HomePage"));
 
 const AppRoute: React.FC = () => {
-  const { state } = useContext(AuthContext);
+  const {
+    state: { user },
+  } = useContext(AuthContext);
   return (
     <Suspense fallback={<Loader text="Loading . . ." />}>
       <Routes>
-        <Route element={<PublicRoute isAuth={!!state.user} />}>
+        <Route element={<PublicRoute isAuth={!!user} />}>
           <Route path="/login" element={<LoginPage />} />
         </Route>
-        <Route element={<PrivateRoute isAuth={!!state.user} />}>
+        <Route element={<PrivateRoute isAuth={!!user} />}>
           <Route path="/" element={<HomePage />}></Route>
         </Route>
       </Routes>

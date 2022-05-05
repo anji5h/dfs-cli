@@ -1,23 +1,22 @@
-import {
-  Button,
-  Grid,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableFooter,
-  TableHead,
-  TableRow,
-  Typography,
-} from "@mui/material";
 import { useContext, useEffect } from "react";
 import { FoodContext } from "../providers/FoodProvider";
 import { httpGet } from "../utils/httpRequest";
 import Loader from "./Loader";
 import FoodItem from "./FoodItem";
 import { filterOrder, getTotalAmount } from "../utils/order";
-
+//-----------------------------------------------------------------
+import TableContainer from "@mui/material/TableContainer";
+import Table from "@mui/material/Table";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import TableCell from "@mui/material/TableCell";
+import TableBody from "@mui/material/TableBody";
+import TableFooter from "@mui/material/TableFooter";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
+import Button from "@mui/material/Button";
+//-------------------------------------------------------------------
 const FoodCategory: React.FC = () => {
   const {
     state: { loading, error, categories },

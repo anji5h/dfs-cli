@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
 
 const Clock: React.FC = () => {

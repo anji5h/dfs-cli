@@ -1,5 +1,7 @@
-import { Button, ButtonGroup, Typography } from "@mui/material";
-import { useContext, useState } from "react";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import ButtonGroup from "@mui/material/ButtonGroup";
+import { useContext } from "react";
 import { FoodContext } from "../providers/FoodProvider";
 
 const FoodQuantity: React.FC<FoodQty.IProps> = ({ order_count, quantity, row, col }) => {
@@ -15,7 +17,7 @@ const FoodQuantity: React.FC<FoodQty.IProps> = ({ order_count, quantity, row, co
         -
       </Button>
       <Typography className="fd-qty">{order_count}</Typography>
-      <Button disabled={order_count >= quantity} onClick={() => increaseOrder(row, col)}>
+      <Button color="success" disabled={quantity <= 0} onClick={() => increaseOrder(row, col)}>
         +
       </Button>
     </ButtonGroup>

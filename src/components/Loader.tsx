@@ -1,4 +1,6 @@
-import { Box, CircularProgress, Typography } from "@mui/material";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const Loader: React.FC<{ text: string }> = ({ text }) => {
   return (

@@ -1,14 +1,15 @@
-import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
-import {
-  Collapse,
-  IconButton,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  Typography,
-} from "@mui/material";
+import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
+import KeyboardArrowUp from "@mui/icons-material/KeyboardArrowUp";
+//-----------------------------------------------------------------------
+import TableRow from "@mui/material/TableRow";
+import TableCell from "@mui/material/TableCell";
+import TableBody from "@mui/material/TableBody";
+import Table from "@mui/material/Table";
+import TableHead from "@mui/material/TableHead";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Collapse from "@mui/material/Collapse";
+//-----------------------------------------------------------------------
 import React, { useState } from "react";
 import { getAvailableTime } from "../utils/formatTime";
 import FoodQuantity from "./FoodQuantity";
