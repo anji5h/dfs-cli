@@ -42,23 +42,15 @@ const AuthProvider: ReactFCWithChildren = ({ children }) => {
   }, []);
 
   const login = async (token: string) => {
-    try {
-      localStorage.setItem("token", token);
-      dispatch({ type: "RESET" });
-      let { data } = await httpGet("/user/me", true);
-      showToast({
-        message: "Login successful",
-        duration: 3000,
-        type: "success",
-        open: true,
-      });
-      dispatch({ type: "LOGIN_SUCCESS", payload: data.user });
-    } catch (err: any) {
-      if (err.response?.status === 401) {
-        logout();
-      }
-      dispatch({ type: "LOGIN_ERROR", payload: err.response?.data?.message || err.message });
-    }
+    localStorage.setItem("token", token);
+    dispatch({ type: "RESET" });
+    await getAuthStatus();
+    showToast({
+      message: "Login successful",
+      duration: 3000,
+      type: "success",
+      open: true,
+    });
   };
 
   const logout = () => {

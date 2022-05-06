@@ -1,5 +1,8 @@
 import { useForm } from "react-hook-form";
-import { TextField, Button, Grid, Typography } from "@mui/material";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
 import { httpPost } from "../utils/httpRequest";
 import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";

@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import Grid from "@mui/material/Grid";
 import FoodCategory from "../components/FoodCategory";
 import FoodProvider from "../providers/FoodProvider";
 

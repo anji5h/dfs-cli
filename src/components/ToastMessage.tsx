@@ -1,4 +1,4 @@
-import { Snackbar } from "@mui/material";
+import Snackbar from "@mui/material/Snackbar";
 import { forwardRef, useContext, useEffect } from "react";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { ToastContext } from "../providers/ToastProvider";
@@ -18,7 +18,7 @@ const ToastMessage: React.FC = () => {
     }
     showToast({ ...toast, open: false });
   };
-  
+
   return (
     <Snackbar
       open={!!toast.open}

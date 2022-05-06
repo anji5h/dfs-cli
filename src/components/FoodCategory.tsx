@@ -16,7 +16,7 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
-//-------------------------------------------------------------------
+
 const FoodCategory: React.FC = () => {
   const {
     state: { loading, error, categories },
